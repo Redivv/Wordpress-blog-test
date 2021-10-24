@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wp
+    volumes: 
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  app:
+    image: wordpress
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - wp-includes:/var/www/html/wp-includes
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: wp
+volumes:
+  db:
+  wp-includes:
